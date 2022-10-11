@@ -6,26 +6,31 @@ import os
 FILE_NAME = 'Datas/scenario1_silent_hanging.xlsx'
 
 class Log:
+    # 初期化処理
     def __init__(self):
         self.read_datas()
         self.init_parameter()
         self.init_app()
+    # データ関係の関数
     def data_path(self, path: str):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
     def read_datas(self):
         self.df_msg = pd.read_excel(self.data_path(FILE_NAME), sheet_name=0, index_col=0)
         self.df_spkr = pd.read_excel(self.data_path(FILE_NAME), sheet_name=1, index_col=0)
+    # パラメータの初期化
     def init_parameter(self):
         self.log_id = 0
         self.logs:list[tuple] = []   # (name, content)
         self.msg_replace = [(f'{{{i}}}', row['name']) for i, row in self.df_spkr.iterrows() if row['is_player']]
         self.is_auto = False
         self.auto_msg_time = 3
+    # アプリの初期化
     def init_app(self):
         self.root = tk.Tk()
         self.chat = Chat(self.root, 300, 400)
         self.chat.pack()
         self.root.bind('<Return>', lambda e: self.next_cmd())
+    # 次のメッセージへ
     def next_cmd(self):
         if self.log_id < len(self.df_msg):
             # dfからデータを取り出す
