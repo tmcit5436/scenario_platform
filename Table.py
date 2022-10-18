@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from turtle import update
 
 class Table(ttk.Treeview):
     def __init__(self, master: tk.Misc):
@@ -21,6 +22,13 @@ class Table(ttk.Treeview):
     def init_values(self, names: list):
         for i, name in enumerate(names):
             self.insert('', 'end', iid=i, values=(name, '', '', ''))
+    def update_value(self, item: str, column: str, cmd: str, value: str):
+        if cmd == 'set':
+            self.set(item, column, value)
+        elif cmd == 'add':
+            prev_value = self.item(item, 'values')[self['column'].index(column)]
+            self.set(item, column, prev_value + value)
+        
 
 if __name__ == '__main__':
     root = tk.Tk()
@@ -28,5 +36,8 @@ if __name__ == '__main__':
     tree = Table(root)
     tree.init_values('ABCDE')
     tree.pack()
+
+    tree.update_value('0', 'alive', 'set', '(1)襲撃')
+    tree.update_value('1', 'name', 'add', 'さん')
 
     root.mainloop()
