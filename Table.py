@@ -19,8 +19,12 @@ class Table(ttk.Treeview):
         self.heading('alive', text='生存', anchor=tk.CENTER)
         self.heading('job', text='役職', anchor=tk.CENTER)
         self.heading('skill', text='能力結果', anchor=tk.CENTER)
-    def init_values(self, names: list):
-        for i, name in enumerate(names):
+    def init_values(self, names: list, iids=None):
+        if iids is None:
+            iterator = enumerate(names)
+        else:
+            iterator = zip(iids, names)
+        for i, name in iterator:
             self.insert('', 'end', iid=i, values=(name, '', '', ''))
     def update_value(self, item: str, column: str, cmd: str, value: str):
         if cmd == 'set':
