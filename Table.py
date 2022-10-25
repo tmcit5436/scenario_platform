@@ -27,7 +27,7 @@ class Table(ttk.Treeview):
         for i, name in iterator:
             self.insert('', 'end', iid=i, values=(name, '', '', ''))
     def update_value(self, item: str, column: str, cmd: str, value: str):
-        if cmd == 'set':
+        if cmd in {'set', 'update'}:
             self.set(item, column, value)
         elif cmd == 'add':
             prev_value = self.item(item, 'values')[self['column'].index(column)]
