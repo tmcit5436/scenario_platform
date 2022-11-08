@@ -22,7 +22,7 @@ class Chat(tk.Frame):
     # メッセージの追加
     def send_msg(self, msg: str, sender=('sender','red'), side='left', color='white'):
         tag = f'msg{self.msg_index}'
-        if side == 'right':
+        if side in {'right', 'r'}:
             self.send_right_msg(msg, sender, color, tag)
         else:
             self.send_left_msg(msg, sender, color, tag)

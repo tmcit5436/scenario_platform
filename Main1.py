@@ -62,11 +62,15 @@ class Log:
         cond_id = self.df_msg.loc[self.log_id,'condition_index']
         color = self.df_spkr.loc[spkr_id,'color']
         spkr_name = self.df_spkr.loc[spkr_id,'name']
+        if 'side' in self.df_spkr.columns:
+            side = self.df_spkr.loc[spkr_id,'side']
+        else:
+            side = 'left'
         # for id, name in self.msg_replace: #content内のidの変換(いらないかも)
         #     content = content.replace(id, name)
         # ログ、状況表、コラムを更新する
         self.logs.append((spkr_name, content))
-        self.chat.send_msg(content, (spkr_name, 'red'), color=color)
+        self.chat.send_msg(content, (spkr_name, 'red'), side=side, color=color)
         self.update_condition(cond_id)
     # 状況表の更新
     def update_condition(self, id):
