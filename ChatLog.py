@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.font import Font
 
 class Chat(tk.Frame):
     def __init__(self, master, width, height):
@@ -62,3 +63,7 @@ class Chat(tk.Frame):
             fill=color, width=0, joinstyle=tk.ROUND, tags=tag)
         self.canvas.lower(back_id)
         self.y_diff += pos[3] - pos[1] + 10
+    def center_view(self, content):
+        text_id = self.canvas.create_text(self.width / 2, self.y_diff, text=content, fill='black', font=Font(weight='bold'))
+        pos = self.canvas.bbox(text_id)
+        self.y_diff += pos[3] - pos[1]

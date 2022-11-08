@@ -47,17 +47,27 @@ class Log:
             # dfからデータを取り出す
             spkr_id = self.df_msg.loc[self.log_id,'speaker_id']
             content = self.df_msg.loc[self.log_id,'content']
-            cond_id = self.df_msg.loc[self.log_id,'condition_index']
-            color = self.df_spkr.loc[spkr_id,'color']
-            spkr_name = self.df_spkr.loc[spkr_id,'name']
-            # for id, name in self.msg_replace: #
-            #     content = content.replace(id, name)
-            # ログ、状況表、コラムを更新する
-            self.logs.append((spkr_name, content))
-            self.chat.send_msg(content, (spkr_name, 'red'), color=color)
-            self.update_condition(cond_id)
+            # spkr_idに応じた処理を行う
+            if isinstance(spkr_id, int):
+                self.next_msg(spkr_id, content)
+            elif spkr_id == 'DAY':
+                self.chat.center_view(content)
+            elif isinstance(spkr_id, float):
+                self.next_msg(int(spkr_id), content)
+            else:
+                print(spkr_id, type(spkr_id))
             # ログIDを1進める
             self.log_id += 1
+    def next_msg(self, spkr_id, content):
+        cond_id = self.df_msg.loc[self.log_id,'condition_index']
+        color = self.df_spkr.loc[spkr_id,'color']
+        spkr_name = self.df_spkr.loc[spkr_id,'name']
+        # for id, name in self.msg_replace: #content内のidの変換(いらないかも)
+        #     content = content.replace(id, name)
+        # ログ、状況表、コラムを更新する
+        self.logs.append((spkr_name, content))
+        self.chat.send_msg(content, (spkr_name, 'red'), color=color)
+        self.update_condition(cond_id)
     # 状況表の更新
     def update_condition(self, id):
         # idの検証
