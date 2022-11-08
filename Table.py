@@ -10,7 +10,7 @@ class Table(ttk.Treeview):
 
         self.column('#0', width=0, stretch='no')
         self.column('name', anchor=tk.CENTER, width=100)
-        self.column('alive', anchor=tk.CENTER, width=50)
+        self.column('alive', anchor=tk.CENTER, width=60)
         self.column('job', anchor=tk.CENTER, width=60)
         self.column('skill', anchor=tk.W, width=200)
 
