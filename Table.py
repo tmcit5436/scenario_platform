@@ -25,13 +25,19 @@ class Table(ttk.Treeview):
         else:
             iterator = zip(iids, names)
         for i, name in iterator:
-            self.insert('', 'end', iid=i, values=(name, '', '', ''))
+            self.insert('', 'end', iid=i, values=(name, '', '', ''), tags=str(i))
     def update_value(self, item: str, column: str, cmd: str, value: str):
         if cmd in {'set', 'update'}:
             self.set(item, column, value)
         elif cmd == 'add':
             prev_value = self.item(item, 'values')[self['column'].index(column)]
             self.set(item, column, prev_value + value)
+    # 文字色関係
+    def init_color(self):
+        for iid in self.get_children():
+            self.tag_configure(iid, foreground='white')
+    def update_color(self, id, color):
+        self.tag_configure(id, foreground=color)
         
 
 if __name__ == '__main__':

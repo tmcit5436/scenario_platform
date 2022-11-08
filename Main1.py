@@ -65,10 +65,12 @@ class Log:
             id = int(id)
         except ValueError:
             return
+        self.table.init_color()
         # 指定されたidの分更新していく
         for i in range(self.cond_id, id+1):
             row = self.df_cond.loc[i]
             self.table.update_value(row['speaker_id'], row['column'], row['cmd'], row['content'])
+            # self.table.update_color(str(row["speaker_id"]), 'yellow')
             self.cond_id += 1
 
 if __name__ == '__main__':
