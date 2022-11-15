@@ -89,4 +89,11 @@ class Log:
 
 if __name__ == '__main__':
     log = Log()
+
+    log.chat.canvas.update_idletasks()
+    log.table.update_idletasks()
+    print(log.chat.canvas.winfo_height())
+    print(log.table.winfo_height())
+    print(log.table.winfo_width())
+
     log.root.mainloop()

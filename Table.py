@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from turtle import update
 
 class Table(ttk.Treeview):
     def __init__(self, master: tk.Misc):
