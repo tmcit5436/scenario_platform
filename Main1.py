@@ -1,8 +1,8 @@
-import site
 import pandas as pd
 import tkinter as tk
 from ChatLog import Chat
 from Table import Table
+from Term import Term
 import os
 
 FILE_NAME = 'Datas/scenario1_silent_hanging.xlsx'
@@ -20,6 +20,7 @@ class Log:
         self.df_msg = pd.read_excel(self.data_path(FILE_NAME), sheet_name=0, index_col=0)
         self.df_spkr = pd.read_excel(self.data_path(FILE_NAME), sheet_name=1, index_col=0)
         self.df_cond = pd.read_excel(self.data_path(FILE_NAME), sheet_name=2, index_col=0)
+        self.df_term = pd.read_excel(self.data_path(FILE_NAME), sheet_name=3, index_col=0)
     # パラメータの初期化
     def init_parameter(self):
         self.log_id = 0
@@ -32,7 +33,9 @@ class Log:
     def init_app(self):
         self.root = tk.Tk()
         self.chat = Chat(self.root, 300, 400)
-        self.chat.grid(row=0, column=0)
+        self.term = Term(self.root)
+        self.chat.grid(row=0, column=0, rowspan=2)
+        self.term.grid(row=1, column=1)
         self.init_table()
         self.root.bind('<Return>', lambda e: self.next_cmd())
     # 状況表の初期化
@@ -60,6 +63,7 @@ class Log:
             self.log_id += 1
     def next_msg(self, spkr_id, content):
         cond_id = self.df_msg.loc[self.log_id,'condition_index']
+        term_id = self.df_msg.loc[self.log_id,'term_index']
         color = self.df_spkr.loc[spkr_id,'color']
         spkr_name = self.df_spkr.loc[spkr_id,'name']
         if 'side' in self.df_spkr.columns:
@@ -72,6 +76,7 @@ class Log:
         self.logs.append((spkr_name, content))
         self.chat.send_msg(content, (spkr_name, 'red'), side=side, color=color)
         self.update_condition(cond_id)
+        self.update_term(term_id)
     # 状況表の更新
     def update_condition(self, id):
         # idの検証
@@ -86,14 +91,19 @@ class Log:
             self.table.update_value(row['speaker_id'], row['column'], row['cmd'], row['content'])
             # self.table.update_color(str(row["speaker_id"]), 'yellow')
             self.cond_id += 1
+    def update_term(self, id):
+        # idの検証
+        try:
+            id = int(id)
+        except ValueError:
+            return
+        row = self.df_term.loc[id]
+        self.term.insert_content(row['term'], row['explanation'])
 
 if __name__ == '__main__':
     log = Log()
 
     log.chat.canvas.update_idletasks()
     log.table.update_idletasks()
-    print(log.chat.canvas.winfo_height())
-    print(log.table.winfo_height())
-    print(log.table.winfo_width())
 
     log.root.mainloop()
