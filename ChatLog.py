@@ -20,7 +20,7 @@ class Chat(tk.Frame):
         self.bar.config(command=self.canvas.yview)
         self.canvas.config(yscrollcommand=self.bar.set)
     # メッセージの追加
-    def send_msg(self, msg: str, sender=('sender','red'), side='left', color='white'):
+    def send_msg(self, msg: str, sender=('sender','white','black'), side='left', color='white'):
         tag = f'msg{self.msg_index}'
         if side in {'right', 'r'}:
             self.send_right_msg(msg, sender, color, tag)
@@ -31,8 +31,8 @@ class Chat(tk.Frame):
         self.canvas.yview_moveto(1)
     def send_left_msg(self, msg, sender, color, tag):
         # アイコン
-        self.canvas.create_oval(5, self.y_diff, 30, self.y_diff+25, fill='red')
-        self.canvas.create_text(17.5, self.y_diff+12.5, text=sender[0][0])
+        self.canvas.create_oval(5, self.y_diff, 30, self.y_diff+25, fill=sender[1])
+        self.canvas.create_text(17.5, self.y_diff+12.5, text=sender[0][0], fill=sender[2])
         x_icon = 27
         # 名前
         if not sender is None:
