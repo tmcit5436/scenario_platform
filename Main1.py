@@ -1,8 +1,8 @@
-import pandas as pd
 import tkinter as tk
 from ChatLog import Chat
 from Table import Table
 from Term import Term
+from StandBy import Standby
 import os
 
 FILE_NAME = 'Datas/scenario1_silent_hanging.xlsx'
@@ -10,13 +10,23 @@ FILE_NAME = 'Datas/scenario1_silent_hanging.xlsx'
 class Log:
     # 初期化処理
     def __init__(self):
+        self.root = tk.Tk()
+        self.root.title('人狼シナリオ')
+        self.standby = Standby(self.root)
+        self.standby.grid(row=0, column=0)
+    def start_app(self):
+        self.root.after(0, self.prepare_app)
+        self.root.mainloop()
+    def prepare_app(self):
         self.read_datas()
+        self.standby.destroy()
         self.init_parameter()
         self.init_app()
     # データ関係の関数
     def data_path(self, path: str):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
     def read_datas(self):
+        import pandas as pd
         self.df_msg = pd.read_excel(self.data_path(FILE_NAME), sheet_name=0, index_col=0)
         self.df_spkr = pd.read_excel(self.data_path(FILE_NAME), sheet_name=1, index_col=0)
         self.df_cond = pd.read_excel(self.data_path(FILE_NAME), sheet_name=2, index_col=0)
@@ -31,7 +41,6 @@ class Log:
         # self.auto_msg_time = 3
     # アプリの初期化
     def init_app(self):
-        self.root = tk.Tk()
         self.chat = Chat(self.root, 300, 400)
         self.term = Term(self.root)
         self.chat.grid(row=0, column=0, rowspan=2)
@@ -110,7 +119,4 @@ class Log:
 if __name__ == '__main__':
     log = Log()
 
-    log.chat.canvas.update_idletasks()
-    log.table.update_idletasks()
-
-    log.root.mainloop()
+    log.start_app()
