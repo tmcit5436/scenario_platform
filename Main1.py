@@ -5,7 +5,8 @@ from Term import Term
 from StandBy import Standby
 import os
 
-FILE_NAME = 'Datas/scenario1_silent_hanging.xlsx'
+FILES = ['excel_data', 'scenario1_silent_hanging', '確定白襲撃']
+FILE_NAME = 'Datas/' + FILES[2] + '.xlsx'
 
 class Log:
     # 初期化処理
