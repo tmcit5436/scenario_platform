@@ -67,3 +67,4 @@ class Chat(tk.Frame):
         text_id = self.canvas.create_text(self.width / 2, self.y_diff, text=content, fill='black', font=Font(weight='bold'))
         pos = self.canvas.bbox(text_id)
         self.y_diff += pos[3] - pos[1]
+        self.canvas.yview_moveto(1)
