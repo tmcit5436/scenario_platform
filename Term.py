@@ -17,7 +17,7 @@ class Term(tk.Frame):
         # new.grid(row=0, column=0, sticky=tk.N)
         self.header = tk.Label(self, text='「コラム」', font=('',28))
         self.header.grid(row=0, column=0, columnspan=3, sticky=tk.N)
-        self.text = tk.Label(self, text='ここにシナリオ内に出てきた\n人狼の用語の説明が書かれます。\nあ\nあ\nあ\nあ\nあ\nあ', font=('',18), anchor=tk.N, justify=tk.CENTER, width=38, height=5)
+        self.text = tk.Label(self, text='ここにシナリオ内に出てきた\n人狼の用語の説明が書かれます。', font=('',18), anchor=tk.N, justify=tk.CENTER, width=38, height=5)
         self.text.grid(row=1, column=0, columnspan=3)
     def init_button(self):
         self.button_prev = tk.Button(self, text='←', command=lambda: self.add_page(-1))
