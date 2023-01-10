@@ -3,6 +3,7 @@ from ChatLog import Chat
 from Table import Table
 from Term import Term
 from StandBy import Standby
+from numpy import int64
 import os
 import sys
 
@@ -70,6 +71,9 @@ class Log:
             # spkr_idに応じた処理を行う
             if isinstance(spkr_id, int):
                 self.next_msg(spkr_id, content)
+            elif isinstance(spkr_id, int64):
+                print('^^')
+                self.next_msg(int(spkr_id), content)
             elif spkr_id == 'DAY':
                 self.chat.center_view(content)
             elif isinstance(spkr_id, float):
