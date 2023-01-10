@@ -2,8 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 
 class Table(ttk.Treeview):
+    FG = 'black'
+    BG = 'white'
     def __init__(self, master: tk.Misc):
         super().__init__(master, show=['headings'])
+        # style = ttk.Style()
+        # style.configure("Treeview.Heading", foreground=self.FG, background=self.BG)
 
         self['column'] = ('name', 'alive', 'job', 'skill')
 
@@ -18,6 +22,8 @@ class Table(ttk.Treeview):
         self.heading('alive', text='生存', anchor=tk.CENTER)
         self.heading('job', text='役職', anchor=tk.CENTER)
         self.heading('skill', text='能力結果', anchor=tk.CENTER)
+
+        self.init_color()
     def init_values(self, names: list, iids=None):
         if iids is None:
             iterator = enumerate(names)
@@ -34,7 +40,7 @@ class Table(ttk.Treeview):
     # 文字色関係
     def init_color(self):
         for iid in self.get_children():
-            self.tag_configure(iid, foreground='white')
+            self.tag_configure(iid, foreground=self.FG, background=self.BG, )
     def update_color(self, id, color):
         self.tag_configure(id, foreground=color)
         

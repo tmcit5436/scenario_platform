@@ -60,6 +60,7 @@ class Log:
         players = self.df_spkr[self.df_spkr['is_player']==1]
         self.table.init_values(players['name'], players.index)
         self.table.grid(row=0, column=1, sticky=tk.N)
+        # self.table.init_color()
     # 次のメッセージへ
     def next_cmd(self):
         if self.log_id < len(self.df_msg):
@@ -107,7 +108,7 @@ class Log:
             id = int(id)
         except ValueError:
             return
-        self.table.init_color()
+        # self.table.init_color()
         # 指定されたidの分更新していく
         for i in range(self.cond_id, id+1):
             row = self.df_cond.loc[i]
