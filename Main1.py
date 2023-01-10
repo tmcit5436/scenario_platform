@@ -4,9 +4,15 @@ from Table import Table
 from Term import Term
 from StandBy import Standby
 import os
+import sys
 
-FILES = ['excel_data', 'scenario1_silent_hanging', '確定白襲撃']
-FILE_NAME = 'Datas/' + FILES[2] + '.xlsx'
+args = sys.argv
+
+if len(args) <= 1:
+    FILES = ['excel_data', 'scenario1_silent_hanging', '確定白襲撃']
+    FILE_NAME = 'Datas/' + FILES[2] + '.xlsx'
+else:
+    FILE_NAME = 'Datas/' + args[1] + '.xlsx'
 
 class Log:
     # 初期化処理
