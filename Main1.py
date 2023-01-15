@@ -10,8 +10,8 @@ import sys
 args = sys.argv
 
 if len(args) <= 1:
-    FILES = ['excel_data', 'scenario1_silent_hanging', '確定白襲撃']
-    FILE_NAME = 'Datas/' + FILES[2] + '.xlsx'
+    FILES = ['excel_data', 'scenario1_silent_hanging', '占い師_初日CO', '霊能者_黒発見時CO', '人狼_確定白襲撃', '狂人_占い師騙り']
+    FILE_NAME = '../Datas/' + FILES[5] + '.xlsx'
 else:
     FILE_NAME = 'Datas/' + args[1] + '.xlsx'
 
