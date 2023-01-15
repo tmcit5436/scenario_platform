@@ -32,7 +32,7 @@ class Log:
         self.init_app()
     # データ関係の関数
     def data_path(self, path: str):
-        return os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
+        return os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), path)
     def read_datas(self):
         import pandas as pd
         self.df_msg = pd.read_excel(self.data_path(FILE_NAME), sheet_name=0, index_col=0)
