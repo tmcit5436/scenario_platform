@@ -11,7 +11,7 @@ args = sys.argv
 
 if len(args) <= 1:
     FILES = ['excel_data', 'scenario1_silent_hanging', 'uranaishi_co', 'uranaishi_skill', 'reinousya_skill', 'kariudo_co', 'kariudo_skill', 'kyouzin_skill', 'zinrou_skill']
-    FILE_NAME = '../Datas/' + FILES[2] + '.xlsx'
+    FILE_NAME = '../Datas/' + FILES[4] + '.xlsx'
 else:
     FILE_NAME = 'Datas/' + args[1] + '.xlsx'
 
