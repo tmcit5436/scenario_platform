@@ -11,7 +11,7 @@ args = sys.argv
 
 if len(args) <= 1:
     FILES = ['excel_data', 'scenario1_silent_hanging', 'uranaishi_co', 'uranaishi_skill', 'reinousya_skill', 'kariudo_co', 'kariudo_skill', 'kyouzin_skill', 'zinrou_skill']
-    FILE_NAME = '' + FILES[3] + '.xlsx'
+    FILE_NAME = '' + FILES[2] + '.xlsx'
 else:
     FILE_NAME = 'Datas/' + args[1] + '.xlsx'
 
@@ -35,10 +35,14 @@ class Log:
         return os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), path)
     def read_datas(self):
         import pandas as pd
-        self.df_msg = pd.read_excel(self.data_path(FILE_NAME), sheet_name=0, index_col=0)
-        self.df_spkr = pd.read_excel(self.data_path(FILE_NAME), sheet_name=1, index_col=0)
-        self.df_cond = pd.read_excel(self.data_path(FILE_NAME), sheet_name=2, index_col=0)
-        self.df_term = pd.read_excel(self.data_path(FILE_NAME), sheet_name=3, index_col=0)
+        #self.df_msg = pd.read_excel(self.data_path(FILE_NAME), sheet_name=0, index_col=0)
+        #self.df_spkr = pd.read_excel(self.data_path(FILE_NAME), sheet_name=1, index_col=0)
+        #self.df_cond = pd.read_excel(self.data_path(FILE_NAME), sheet_name=2, index_col=0)
+        #self.df_term = pd.read_excel(self.data_path(FILE_NAME), sheet_name=3, index_col=0)
+        self.df_msg = pd.read_excel(FILE_NAME, sheet_name=0, index_col=0)
+        self.df_spkr = pd.read_excel(FILE_NAME, sheet_name=1, index_col=0)
+        self.df_cond = pd.read_excel(FILE_NAME, sheet_name=2, index_col=0)
+        self.df_term = pd.read_excel(FILE_NAME, sheet_name=3, index_col=0)
     # パラメータの初期化
     def init_parameter(self):
         self.log_id = 0
